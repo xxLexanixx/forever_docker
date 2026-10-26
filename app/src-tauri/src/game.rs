@@ -18,13 +18,8 @@ pub fn write_wtf(settings: &Settings) -> Result<(), String> {
     let path = dir.join(WTF_NAME);
     let base = dir.join("Config.wtf");
     let text = std::fs::read_to_string(&path).or_else(|_| std::fs::read_to_string(&base)).unwrap_or_default();
-    let client_portal = settings.server.portal
-        .strip_suffix(".actual.battle.net")
-        .unwrap_or(&settings.server.portal)
-        .to_string();
-
     let wanted = [
-        ("portal", client_portal),
+        ("portal", settings.server.portal.clone()),
         ("textLocale", settings.locale.clone()),
         ("audioLocale", settings.locale.clone()),
     ];
